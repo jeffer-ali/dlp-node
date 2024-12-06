@@ -1,0 +1,13 @@
+services:
+
+  dlp-node:
+    # image: jefferxia/dlp-node  # 使用的 Docker 镜像
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file: 
+      - .env
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+
