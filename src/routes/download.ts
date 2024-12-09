@@ -56,10 +56,10 @@ router.get('/', async (req, res) => {
     if(metadata.duration > 300) {
       return res.status(400).json({ message: '视频长度不能超过5分钟' });
     }
-    console.log('视频信息', metadata);
+    console.log('已获取视频信息');
     
     const result = await ytDlpWrap.execPromise(params);
-    console.log('视频已下载', result);
+    console.log('视频已下载');
     const id = crypto.randomBytes(7).toString('hex');
       
 
@@ -79,21 +79,25 @@ router.get('/', async (req, res) => {
       });
       console.log('开始音频识别，启动ASR服务');
       if (audio?.audioUrl) {
-        // const asrData = await useTecentAsr(`${req.headers.host}/static/downloads/${metadata.id}/audio.mp3`);
-        const asrData = await useTecentAsr(audio?.audioUrl);
-        subtitlesData = asrData;
+        const asrData = await useTecentAsr(`${req.headers.host}/static/downloads/${metadata.id}/audio.mp3`);
+        subtitlesData = asrData || {};
       }
     }
 
-    // fs.rm(`${downloadsPath}/${metadata.id}/video.mp4`, { recursive: true, force: true }, (err) => {
-    //   if (err) {
-    //     console.error('Error removing directory:', err);
-    //   } else {
-    //     console.log('Directory removed successfully!');
-    //   }
-    // });
+    fs.rm(`${downloadsPath}/${metadata.id}`, { recursive: true, force: true }, (err) => {
+      if (err) {
+        console.error('Error removing directory:', err);
+      } else {
+        console.log('Directory removed successfully!');
+      }
+    });
 
-    return res.status(200).json({ data: subtitlesData });
+    return res.status(200).json({
+      data: {
+        metadata,
+        ...subtitlesData
+      }
+    });
 
   } catch (err) {
     res.status(500).json({ message: err.message });

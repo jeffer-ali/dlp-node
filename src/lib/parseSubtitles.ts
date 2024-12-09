@@ -96,7 +96,7 @@ const parseVTTContent = (content: any) => {
   });
 
   return {
-    result: result.join('\n'),
+    result: result.join(' '),
     resultDetail: subs
   }
 };

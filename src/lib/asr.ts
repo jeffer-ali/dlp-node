@@ -98,13 +98,13 @@ async function fileToBase64(filePath: string): Promise<string> {
 
 // 腾讯语音识别
 export const useTecentAsr = async (filePath: string) => {
-  const base64Audio = await fileToBase64(filePath);
+  // const base64Audio = await fileToBase64(filePath);
   const params = {
     EngineModelType: "16k_zh_large",
-    // SourceType: 0,
-    // Url: filePath,
-    SourceType: 1,
-    Data: base64Audio,
+    SourceType: 0,
+    Url: filePath,
+    // SourceType: 1,
+    // Data: base64Audio,
     ChannelNum: 1,
     ResTextFormat: 3,
   };
