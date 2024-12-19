@@ -1,7 +1,7 @@
 services:
 
   dlp-node:
-    image: jefferxia/dlp-node:1.0.0  # 使用的 Docker 镜像
+    image: jefferxia/dlp-node:0.0.1  # 使用的 Docker 镜像
     env_file: 
       - .env
     ports:

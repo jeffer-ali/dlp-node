@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
+import * as dotenv from 'dotenv';
+dotenv.config();
 import routes from './routes';
 import logger from './utils/logger';
 import path from 'path';
@@ -25,7 +27,6 @@ app.use('/static', express.static(path.join(__dirname, '../public')));
 server.listen(port, () => {
   logger.info(`Server is running on port ${port}`);
 });
-
 
 process.on('uncaughtException', (err, origin) => {
   logger.error(`Uncaught Exception at ${origin}: ${err}`);

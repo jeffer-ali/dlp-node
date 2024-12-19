@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
       url,
       '-S',
       'ext',
-      '--proxy=http://127.0.0.1:7890'
+      // '--proxy=http://127.0.0.1:7890'
     ];
     let params = [
       url,
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
       '--write-subs',
       '--sub-langs',
       'all',
-      '--proxy=http://127.0.0.1:7890'
+      // '--proxy=http://127.0.0.1:7890'
     ];
     if(url.includes('bilibili.com')) {
       params = [
@@ -59,7 +59,7 @@ router.get('/', async (req, res) => {
     console.log('已获取视频信息');
     
     const result = await ytDlpWrap.execPromise(params);
-    console.log('视频已下载');
+    console.log('视频已下载', result);
     const id = crypto.randomBytes(7).toString('hex');
       
 
